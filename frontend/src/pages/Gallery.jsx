@@ -8,19 +8,9 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import VideocamIcon from '@mui/icons-material/Videocam'
 import CloseIcon from '@mui/icons-material/Close'
 import { galleryAPI } from '../services/api.js'
+import { getImageUrl, BACKEND_URL as API_BASE } from '../utils/imageUtils.js'
 
-const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:8080').replace(/\/$/, '')
-
-export function getImageUrl(url) {
-  if (!url) return ''
-  if (url.startsWith('http://') || url.startsWith('https://')) return url
-  if (url.startsWith('/uploads/') || url.startsWith('uploads/')) {
-    const clean = url.startsWith('/') ? url : `/${url}`
-    return `${API_BASE}${clean}`
-  }
-  if (url.startsWith('/')) return url
-  return `${API_BASE}/${url}`
-}
+export { getImageUrl, API_BASE }
 
 export function isVideoItem(item) {
   if (!item) return false

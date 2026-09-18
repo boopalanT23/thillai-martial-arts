@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { BACKEND_URL } from '../utils/imageUtils.js'
 
 const AuthContext = createContext(null)
 
@@ -9,7 +10,7 @@ const TOKEN_KEY  = 'thillai_token'
 const USER_KEY   = 'thillai_user'
 
 /* Axios base URL */
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
+axios.defaults.baseURL = BACKEND_URL
 
 /* Interceptor: attach JWT to every request */
 axios.interceptors.request.use(config => {

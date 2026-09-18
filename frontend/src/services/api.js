@@ -2,9 +2,10 @@
    api.js – Centralised Axios service layer
    ───────────────────────────────────────────────────────────── */
 import axios from 'axios'
+import { BACKEND_URL } from '../utils/imageUtils.js'
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080',
+  baseURL: BACKEND_URL,
   headers: { 'Content-Type': 'application/json' },
 })
 

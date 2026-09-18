@@ -15,6 +15,7 @@ import { useAuth } from '../context/AuthContext.jsx'
 import { studentAPI, paymentAPI, notificationAPI } from '../services/api.js'
 import IDCardGenerator from '../components/IDCardGenerator.jsx'
 import PageLoader from '../components/PageLoader.jsx'
+import { getFullPhotoUrl } from '../utils/imageUtils.js'
 
 const TABS = [
   { key: 'profile',      label: 'Profile',          icon: PersonIcon },
@@ -67,12 +68,9 @@ function ProfileTab({ student }) {
         <div className="w-28 h-28 bg-[#DBE2EF] border border-[#DBE2EF] rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 shadow-xs">
           {student.photo && !photoError ? (
             <img
-              src={
-                student.photo.startsWith('http')
-                  ? student.photo
-                  : `http://localhost:8080${student.photo}`
-              }
+              src={getFullPhotoUrl(student.photo)}
               alt={student.name}
+              crossOrigin="anonymous"
               className="w-full h-full object-cover"
               onError={() => setPhotoError(true)}
             />
@@ -425,6 +423,7 @@ export default function StudentDashboard() {
   const [history, setHistory]     = useState([])
   const [attendance, setAttendance] = useState([])
   const [notifications, setNotifications] = useState([])
+  const [sidebarPhotoError, setSidebarPhotoError] = useState(false)
 
   const reloadData = useCallback(async () => {
     try {
@@ -487,8 +486,18 @@ export default function StudentDashboard() {
       {/* Sidebar */}
       <aside className="lg:w-64 bg-white border-b lg:border-b-0 lg:border-r border-[#DBE2EF] flex-shrink-0">
         <div className="p-6 border-b border-[#DBE2EF] flex items-center gap-3">
-          <div className="w-10 h-10 rounded bg-[#112D4E] flex items-center justify-center font-display font-black text-white text-lg">
-            {student.name?.[0]?.toUpperCase() || 'T'}
+          <div className="w-10 h-10 rounded-xl bg-[#112D4E] flex items-center justify-center font-display font-black text-white text-lg overflow-hidden flex-shrink-0 border border-[#DBE2EF]">
+            {student.photo && !sidebarPhotoError ? (
+              <img
+                src={getFullPhotoUrl(student.photo)}
+                alt={student.name}
+                crossOrigin="anonymous"
+                className="w-full h-full object-cover"
+                onError={() => setSidebarPhotoError(true)}
+              />
+            ) : (
+              student.name?.[0]?.toUpperCase() || 'T'
+            )}
           </div>
           <div className="min-w-0">
             <p className="font-display font-bold text-[#112D4E] text-base uppercase truncate">

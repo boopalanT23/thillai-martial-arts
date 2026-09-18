@@ -4,7 +4,7 @@ import PrintIcon from '@mui/icons-material/Print'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 
-const BACKEND_URL = 'http://localhost:8080'
+import { getFullPhotoUrl, BACKEND_URL } from '../utils/imageUtils.js'
 
 /*
   Fixed export canvas size: 1080 x 680 (Standard 3:2 ID-card proportion)
@@ -13,11 +13,7 @@ const CARD_WIDTH = 1080
 const CARD_HEIGHT = 680
 
 function getPhotoUrl(photo) {
-  if (!photo) return null
-  if (photo.startsWith('http://') || photo.startsWith('https://')) {
-    return photo
-  }
-  return `${BACKEND_URL}${photo.startsWith('/') ? photo : `/${photo}`}`
+  return getFullPhotoUrl(photo)
 }
 
 function formatDateDDMMYYYY(val) {
