@@ -92,10 +92,11 @@ export function AuthProvider({ children }) {
         user: userObj,
       }
     } catch (err) {
-      console.error('Portal Login Error:', err)
       const msg =
         err.response?.data?.message ||
-        'Invalid credentials or password. Please try again.'
+        (err.message === 'Network Error' || !err.response
+          ? 'Cannot connect to server. Please try again in a few moments.'
+          : 'Invalid credentials or password. Please try again.')
       toast.error(msg)
       return {
         success: false,
