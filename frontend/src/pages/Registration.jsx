@@ -257,7 +257,7 @@ export default function Registration() {
       const orderData = orderRes.data
 
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID?.trim(),
+        key: (orderData.keyId || import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_TRvwtcq8ykZpwb').trim(),
         amount: orderData.amount,
         currency: orderData.currency,
         order_id: orderData.id,

@@ -19,6 +19,9 @@ public class RazorpayService {
 
     private final RazorpayClient razorpayClient;
 
+    @Value("${razorpay.key-id:rzp_test_TRvwtcq8ykZpwb}")
+    private String keyId;
+
     @Value("${razorpay.key-secret}")
     private String keySecret;
 
@@ -90,6 +93,7 @@ public class RazorpayService {
         payload.put("id", orderId);
         payload.put("amount", amount);
         payload.put("currency", currency);
+        payload.put("keyId", (keyId != null && !keyId.isBlank()) ? keyId.trim() : "rzp_test_TRvwtcq8ykZpwb");
 
         return payload;
     }
