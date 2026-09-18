@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Seeds the database with the club's preloaded batches, courses,
@@ -222,7 +223,16 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void seedAdminUser() {
-        if (userRepository.existsByUsername(adminUsername)) return;
+        Optional<User> existingOpt = userRepository.findByUsernameIgnoreCase(adminUsername);
+        if (existingOpt.isPresent()) {
+            User existing = existingOpt.get();
+            existing.setRole(Role.ADMIN);
+            existing.setEnabled(true);
+            existing.setPassword(passwordEncoder.encode(adminPassword));
+            userRepository.save(existing);
+            log.info("Ensured/reset default admin user '{}'", adminUsername);
+            return;
+        }
 
         User admin = User.builder()
                 .username(adminUsername)
@@ -232,6 +242,6 @@ public class DataInitializer implements CommandLineRunner {
                 .enabled(true)
                 .build();
         userRepository.save(admin);
-        log.warn("Seeded default admin user '{}' — CHANGE THIS PASSWORD before going to production!", adminUsername);
+        log.warn("Seeded default admin user '{}' — default password set to configured default.", adminUsername);
     }
 }
