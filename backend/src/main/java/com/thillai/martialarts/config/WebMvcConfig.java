@@ -23,7 +23,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String tmpUploads = java.nio.file.Paths.get(System.getProperty("java.io.tmpdir"), "uploads").toAbsolutePath().toString().replace("\\", "/");
         registry.addResourceHandler(publicUrlPrefix + "/**")
-                .addResourceLocations("file:" + uploadBaseDir + "/");
+                .addResourceLocations(
+                        "file:" + uploadBaseDir + "/",
+                        "file:" + tmpUploads + "/"
+                );
     }
 }

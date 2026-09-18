@@ -37,8 +37,15 @@ public class FileStorageService {
             throw new BadRequestException("Uploaded file is empty");
         }
         try {
-            Path dir = Paths.get(baseDir, subfolder);
-            Files.createDirectories(dir);
+            Path dir;
+            try {
+                dir = Paths.get(baseDir, subfolder);
+                Files.createDirectories(dir);
+            } catch (Exception permEx) {
+                Path fallbackBase = Paths.get(System.getProperty("java.io.tmpdir"), "uploads");
+                dir = fallbackBase.resolve(subfolder);
+                Files.createDirectories(dir);
+            }
 
             String originalName = file.getOriginalFilename() != null ? file.getOriginalFilename() : "file";
             String extension = originalName.contains(".") ? originalName.substring(originalName.lastIndexOf('.')) : "";

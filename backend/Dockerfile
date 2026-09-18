@@ -13,13 +13,16 @@ RUN mvn clean package -DskipTests -B
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
-# Non-root user for security
-RUN addgroup --system spring && adduser --system --ingroup spring spring
+# Non-root user for security and uploads directory with full permissions
+RUN addgroup --system spring && adduser --system --ingroup spring spring \
+    && mkdir -p /app/uploads/photos /app/uploads/aadhaar \
+    && chown -R spring:spring /app /app/uploads \
+    && chmod -R 777 /app/uploads
+
+COPY --from=build --chown=spring:spring /app/target/thillai-martial-arts.jar app.jar
+
 USER spring:spring
 
-COPY --from=build /app/target/thillai-martial-arts.jar app.jar
-
-# Persisted upload directory (mount a volume here in production)
 VOLUME /app/uploads
 ENV UPLOAD_DIR=/app/uploads
 
