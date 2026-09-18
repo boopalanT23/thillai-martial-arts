@@ -1,0 +1,8 @@
+target/
+*.class
+.env
+application-local.properties
+src/main/resources/static/uploads/*/*
+!src/main/resources/static/uploads/**/.gitkeep
+.DS_Store
+*.log

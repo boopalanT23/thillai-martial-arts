@@ -1,0 +1,30 @@
+# Dependencies & Build Outputs
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+target/
+backend/target/
+*.class
+*.jar
+*.war
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+application-local.properties
+
+# Uploaded Student Files & Aadhaar Documents (Prevent uploading personal data)
+backend/src/main/resources/static/uploads/*/*
+!backend/src/main/resources/static/uploads/**/.gitkeep
+
+# IDEs & System Files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+Thumbs.db
+*.log

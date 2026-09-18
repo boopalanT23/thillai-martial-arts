@@ -1,0 +1,437 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   THILLAI MARTIAL ARTS CLUB
+   TYPOGRAPHY SYSTEM:
+   Display / Headings: Barlow Condensed (600, 700, 800)
+   Body / UI: Inter (400, 500, 600, 700)
+
+   EXACT PALETTE:
+   #F9F7F7 (Background / Light)
+   #DBE2EF (Soft / Panels / Borders)
+   #3F72AF (Primary Brand Accent / Highlights)
+   #112D4E (Dark Navy / Headings / Strong Typography)
+============================================================ */
+
+:root {
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    background-color: #F9F7F7;
+    color: #112D4E;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    color: #112D4E;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  p {
+    font-family: var(--font-body);
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-body);
+  }
+
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: #DBE2EF;
+    color: #112D4E;
+  }
+
+  ::-moz-selection {
+    background: #DBE2EF;
+    color: #112D4E;
+  }
+
+  /* Custom Clean Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F9F7F7;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #BFCEE4;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3F72AF;
+  }
+}
+
+/* ============================================================
+   REUSABLE COMPONENTS & UTILITIES
+============================================================ */
+
+@layer components {
+  .container-pad {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-pad {
+    @apply py-16 md:py-24;
+  }
+
+  /* -------------------- Eyebrow -------------------- */
+  .section-eyebrow {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+    background-color: #DBE2EF;
+    color: #112D4E;
+    border: 1px solid rgba(63, 114, 175, 0.2);
+  }
+
+  /* -------------------- Titles -------------------- */
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.25rem, 4vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: #112D4E;
+  }
+
+  .section-title-center {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.25rem, 4vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #112D4E;
+  }
+
+  /* -------------------- Dividers -------------------- */
+  .gold-divider,
+  .divider-accent-center {
+    @apply w-16 h-1 mx-auto rounded mb-6;
+    background-color: #3F72AF;
+  }
+
+  .gold-divider-left,
+  .divider-accent-left {
+    @apply w-16 h-1 rounded mb-5;
+    background-color: #3F72AF;
+  }
+
+  /* -------------------- Cards -------------------- */
+  .card-dark,
+  .card-light,
+  .card-tma {
+    background: #FFFFFF;
+    border: 1px solid #DBE2EF;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(17, 45, 78, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .card-dark:hover,
+  .card-light:hover,
+  .card-tma:hover {
+    border-color: #3F72AF;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -4px rgba(17, 45, 78, 0.08);
+  }
+
+  /* -------------------- Buttons -------------------- */
+  .btn-gold-solid,
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    text-transform: uppercase;
+    background: #3F72AF;
+    color: #F9F7F7 !important;
+    border: 1px solid #3F72AF;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(63, 114, 175, 0.25);
+    transition: all 0.2s ease;
+  }
+
+  .btn-gold-solid:hover,
+  .btn-primary:hover {
+    background: #112D4E;
+    border-color: #112D4E;
+    color: #F9F7F7 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(17, 45, 78, 0.2);
+  }
+
+  .btn-gold-solid:active,
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  /* -------------------- Premium Navbar Register CTA Button -------------------- */
+  @keyframes navBtnShimmer {
+    0% {
+      transform: translateX(-150%) skewX(-20deg);
+    }
+    30%, 100% {
+      transform: translateX(250%) skewX(-20deg);
+    }
+  }
+
+  @keyframes softGlowPulse {
+    0%, 100% {
+      box-shadow: 0 4px 14px -1px rgba(63, 114, 175, 0.4), 0 0 0 0 rgba(63, 114, 175, 0.2);
+    }
+    50% {
+      box-shadow: 0 6px 20px 0 rgba(63, 114, 175, 0.55), 0 0 0 4px rgba(63, 114, 175, 0.15);
+    }
+  }
+
+  .animate-nav-shimmer {
+    animation: navBtnShimmer 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .nav-register-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #112D4E 0%, #1F4473 45%, #3F72AF 100%);
+    color: #FFFFFF !important;
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    animation: softGlowPulse 3.5s ease-in-out infinite;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease;
+  }
+
+  .nav-register-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #3F72AF 0%, #1F4473 50%, #112D4E 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .nav-register-btn:hover::before {
+    opacity: 1;
+  }
+
+  .nav-register-btn:hover {
+    transform: translateY(-1.5px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 24px rgba(63, 114, 175, 0.5), 0 0 0 3px rgba(63, 114, 175, 0.25);
+  }
+
+  .nav-register-btn:active {
+    transform: translateY(0.5px) scale(0.98);
+  }
+
+
+  .btn-gold,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+    text-transform: uppercase;
+    background: transparent;
+    color: #112D4E;
+    border: 1.5px solid #3F72AF;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-gold:hover,
+  .btn-secondary:hover {
+    background: #DBE2EF;
+    color: #112D4E;
+    border-color: #3F72AF;
+    transform: translateY(-1px);
+  }
+
+  .btn-accent {
+    @apply btn-gold-solid;
+  }
+
+  /* -------------------- Inputs -------------------- */
+  .input-dark,
+  .input-light,
+  .input-tma {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-body);
+    font-size: 15px;
+    background: #FFFFFF;
+    color: #112D4E;
+    border: 1px solid #DBE2EF;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .input-dark::placeholder,
+  .input-light::placeholder,
+  .input-tma::placeholder {
+    color: #8CA0B8;
+    font-size: 14px;
+  }
+
+  .input-dark:focus,
+  .input-light:focus,
+  .input-tma:focus {
+    border-color: #3F72AF;
+    box-shadow: 0 0 0 3px rgba(63, 114, 175, 0.15);
+  }
+
+  /* -------------------- Badges -------------------- */
+  .badge-gold,
+  .badge-teal,
+  .badge-blue,
+  .badge-tma {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #DBE2EF;
+    color: #112D4E;
+    border: 1px solid rgba(63, 114, 175, 0.25);
+    border-radius: 6px;
+  }
+
+  /* -------------------- Course Cards -------------------- */
+  .course-card {
+    background: #FFFFFF;
+    border: 1px solid #DBE2EF;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(17, 45, 78, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px -4px rgba(17, 45, 78, 0.1);
+    border-color: #3F72AF;
+  }
+
+  /* -------------------- Tables -------------------- */
+  .admin-table {
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 14px;
+    border-collapse: collapse;
+  }
+
+  .admin-table thead tr {
+    background-color: #DBE2EF;
+    color: #112D4E;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #BFCEE4;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 0.875rem 1rem;
+  }
+
+  .admin-table tbody tr {
+    border-bottom: 1px solid #DBE2EF;
+    transition: background-color 0.15s ease;
+  }
+
+  .admin-table tbody tr:hover {
+    background-color: #F4F7FB;
+  }
+}
+
+/* ============================================================
+   SMOOTH TRANSITIONS
+============================================================ */
+
+button,
+a {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}

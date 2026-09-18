@@ -1,0 +1,76 @@
+erDiagram
+    USERS ||--o| STUDENTS : "login for"
+    BATCHES ||--o{ COURSES : "scheduled in"
+    BATCHES ||--o{ STUDENTS : "primary batch"
+    STUDENTS }o--o{ COURSES : "enrolled in"
+    STUDENTS ||--o{ PAYMENTS : "makes"
+    STUDENTS ||--o{ REGISTRATIONS : "has"
+    PAYMENTS ||--o| REGISTRATIONS : "settles"
+    STUDENTS ||--o| STUDENT_ID_CARDS : "issued"
+    STUDENTS ||--o{ ATTENDANCE : "tracked by"
+    STUDENTS ||--o{ NOTIFICATIONS : "receives"
+    TRAINERS ||--o{ TRAINER_QUALIFICATIONS : "lists"
+
+    USERS {
+        bigint id PK
+        varchar username
+        varchar role
+    }
+    STUDENTS {
+        bigint id PK
+        varchar student_id
+        varchar name
+        varchar mobile
+        date joining_date
+        int monthly_fee
+    }
+    BATCHES {
+        bigint id PK
+        varchar name
+        varchar days
+        varchar time
+    }
+    COURSES {
+        bigint id PK
+        varchar slug
+        varchar name
+        varchar category
+        int fee_per_month
+    }
+    PAYMENTS {
+        bigint id PK
+        int amount
+        varchar status
+        varchar type
+        varchar invoice_number
+    }
+    REGISTRATIONS {
+        bigint id PK
+        varchar courses_snapshot
+        int total_fee
+        varchar status
+    }
+    STUDENT_ID_CARDS {
+        bigint id PK
+        varchar qr_code_data
+        date issued_date
+    }
+    ATTENDANCE {
+        bigint id PK
+        date attendance_date
+        varchar status
+    }
+    NOTIFICATIONS {
+        bigint id PK
+        varchar title
+        boolean is_read
+    }
+    TRAINERS {
+        bigint id PK
+        varchar name
+        varchar designation
+    }
+    TRAINER_QUALIFICATIONS {
+        bigint trainer_id FK
+        varchar qualification
+    }
