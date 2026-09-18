@@ -25,17 +25,36 @@ public class JwtUtil {
     private long expirationMs;
 
     private SecretKey signingKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        String keyStr = (secret != null && !secret.isBlank())
+                ? secret
+                : "ThillaiMartialArtsClubSuperSecretSigningKeyChangeThisInProduction2026";
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            byte[] keyBytes = md.digest(keyStr.getBytes(StandardCharsets.UTF_8));
+            return Keys.hmacShaKeyFor(keyBytes);
+        } catch (java.security.NoSuchAlgorithmException e) {
+            byte[] keyBytes = keyStr.getBytes(StandardCharsets.UTF_8);
+            if (keyBytes.length < 32) {
+                byte[] padded = new byte[32];
+                System.arraycopy(keyBytes, 0, padded, 0, keyBytes.length);
+                keyBytes = padded;
+            }
+            return Keys.hmacShaKeyFor(keyBytes);
+        }
     }
 
     public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims) {
-        Map<String, Object> claims = new HashMap<>(extraClaims);
+        Map<String, Object> claims = new HashMap<>();
+        if (extraClaims != null) {
+            claims.putAll(extraClaims);
+        }
+        long exp = expirationMs > 0 ? expirationMs : 86400000L;
         return Jwts.builder()
                 .claims(claims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + expirationMs))
-                .signWith(signingKey(), SignatureAlgorithm.HS256)
+                .expiration(new Date(System.currentTimeMillis() + exp))
+                .signWith(signingKey())
                 .compact();
     }
 
